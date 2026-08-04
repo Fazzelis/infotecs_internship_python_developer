@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from api.schemas.user_schemas.registration_schema import RegistrationRequestSchema, RegistrationResponseSchema
+from api.schemas.user_schema import UserCreate, UserResponse, UserLogin
 from core.service.user_service import UserService
 from core.service.dependencies import get_user_service
 
@@ -9,13 +9,25 @@ router = APIRouter(
 )
 
 
-@router.post("/registration", response_model=RegistrationResponseSchema)
+@router.post("/registration", response_model=UserResponse)
 async def registrate(
-        payload: RegistrationRequestSchema,
+        payload: UserCreate,
         user_service: UserService = Depends(get_user_service)
 ):
-    created_user = await user_service.registrate_user(payload=payload)
-    return RegistrationResponseSchema(
+    created_user = await user_service.create(payload=payload)
+    return UserResponse(
         id=created_user.id,
         login=created_user.login
+    )
+
+
+@router.post("/login", response_model=UserResponse)
+async def login(
+        payload: UserLogin,
+        user_service: UserService = Depends(get_user_service)
+):
+    user = await user_service.login(payload=payload)
+    return UserResponse(
+        id=user.id,
+        login=user.login
     )
