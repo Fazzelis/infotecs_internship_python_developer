@@ -3,7 +3,7 @@ from typing import Optional
 import re
 
 
-class RegistrationRequestSchema(BaseModel):
+class UserCreate(BaseModel):
     login: str = Field(min_length=3, max_length=50)
     password: str = Field(min_length=8, max_length=30)
 
@@ -18,6 +18,11 @@ class RegistrationRequestSchema(BaseModel):
         return value
 
 
-class RegistrationResponseSchema(BaseModel):
+class UserResponse(BaseModel):
     id: str
     login: str
+
+
+class UserLogin(BaseModel):
+    login: str
+    password: str

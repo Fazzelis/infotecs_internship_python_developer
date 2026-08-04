@@ -1,4 +1,8 @@
-from core.exceptions.user_exceptions import UserAlreadyExist
+from core.exceptions.user_exceptions import (
+    UserAlreadyExist,
+    UserNotFound,
+    InvalidLoginOrPasswordException
+)
 from fastapi import HTTPException, status
 
 
@@ -7,6 +11,18 @@ class ExceptionHandler:
         pass
 
     async def user_already_exist_handler(self, exc: UserAlreadyExist):
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=str(exc)
+        )
+
+    async def user_not_found_handler(self, exc: UserNotFound):
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(exc)
+        )
+
+    async def invalid_login_or_password_handler(self, exc: InvalidLoginOrPasswordException):
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail=str(exc)
