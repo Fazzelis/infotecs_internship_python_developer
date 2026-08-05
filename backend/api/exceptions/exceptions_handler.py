@@ -3,6 +3,9 @@ from core.exceptions.user_exceptions import (
     UserNotFound,
     InvalidLoginOrPasswordException
 )
+from core.exceptions.weather_exceptions import (
+    InvalidCoordinate
+)
 from fastapi import HTTPException, status
 
 
@@ -23,6 +26,12 @@ class ExceptionHandler:
         )
 
     async def invalid_login_or_password_handler(self, exc: InvalidLoginOrPasswordException):
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=str(exc)
+        )
+
+    async def invalid_coordinate(self, exc: InvalidCoordinate):
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail=str(exc)
