@@ -3,9 +3,10 @@ import logging
 import sys
 import os
 from api.controllers.routers import router
-from database.database import Base, engine
+from database.database import Base, engine, async_session
 from contextlib import asynccontextmanager
 from api.exceptions.reg_exceptions import registrate_all_exceptions
+from core.service.weather_update_service import WeatherUpdateService
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -22,8 +23,15 @@ async def lifespan(app: FastAPI):
         await connection.run_sync(Base.metadata.create_all)
     logger.info("База данных успешно инициализирована")
 
+    weather_updater = WeatherUpdateService(async_session)
+    weather_updater.start()
+    logger.info("Планировщик по обновлению погоды успешно запущен")
+
     yield
 
+    if weather_updater:
+        weather_updater.scheduler.shutdown()
+        logger.info("Планировщик по обновлению погоды остановлен")
     logger.info("Завершение работы...")
     engine.dispose()
 

@@ -12,4 +12,4 @@ def get_user_service(db: AsyncSession = Depends(get_db)) -> UserService:
 
 
 def get_weather_service(db: AsyncSession = Depends(get_db)) -> WeatherService:
-    return WeatherService(weather_repository=WeatherRepository(db=db))
+    return WeatherService(weather_repository=WeatherRepository(db=db), user_repository=UserRepository(db=db))

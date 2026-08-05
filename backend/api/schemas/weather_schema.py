@@ -7,3 +7,8 @@ class WeatherByCoordinatesSchema(BaseModel):
     pressure: str
     time: str
     timezone: str
+
+
+class SuccessSubscribeToCity(BaseModel):
+    status: str
+    message: str

@@ -8,3 +8,9 @@ class WeatherByCoordinatesDto:
     pressure: str
     time: str
     timezone: str
+
+
+@dataclass
+class SuccessSubscribeToCity:
+    status: str
+    message: str
