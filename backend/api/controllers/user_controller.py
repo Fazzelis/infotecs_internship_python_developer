@@ -13,7 +13,7 @@ router = APIRouter(
 async def registrate(
         payload: UserCreate,
         user_service: UserService = Depends(get_user_service)
-):
+) -> UserResponse:
     created_user = await user_service.create(payload=payload)
     return UserResponse(
         id=created_user.id,
@@ -25,7 +25,7 @@ async def registrate(
 async def login(
         payload: UserLogin,
         user_service: UserService = Depends(get_user_service)
-):
+) -> UserResponse:
     user = await user_service.login(payload=payload)
     return UserResponse(
         id=user.id,

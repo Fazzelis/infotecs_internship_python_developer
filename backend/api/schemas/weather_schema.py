@@ -9,6 +9,10 @@ class WeatherByCoordinatesSchema(BaseModel):
     timezone: str
 
 
-class SuccessSubscribeToCity(BaseModel):
-    status: str
-    message: str
+class WeatherByNameAndTime(BaseModel):
+    city_name: str
+    datetime: str
+    temperature: float | None
+    humidity: float | None
+    wind_speed: float | None
+    precipitation: float | None

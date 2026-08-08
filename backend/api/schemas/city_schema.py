@@ -6,3 +6,17 @@ class CityToSubscribe(BaseModel):
     name: str
     latitude: float = Field(ge=-90, le=90, description="Широта в градусах")
     longitude: float = Field(ge=-180, le=180, description="Долгота в градусах")
+
+
+class City(BaseModel):
+    name: str
+
+
+class CitiesInfo(BaseModel):
+    len: int
+    cities: list[City]
+
+
+class SuccessSubscribeToCity(BaseModel):
+    status: str
+    message: str

@@ -7,6 +7,9 @@ from core.exceptions.user_exceptions import (
 from core.exceptions.weather_exceptions import (
     InvalidCoordinate
 )
+from core.exceptions.city_exceptions import (
+    CityNotFound
+)
 from api.exceptions.exceptions_handler import ExceptionHandler
 
 
@@ -29,4 +32,9 @@ def registrate_all_exceptions(app: FastAPI):
     app.add_exception_handler(
         InvalidCoordinate,
         ExceptionHandler.invalid_coordinate
+    )
+
+    app.add_exception_handler(
+        CityNotFound,
+        ExceptionHandler.city_not_found
     )

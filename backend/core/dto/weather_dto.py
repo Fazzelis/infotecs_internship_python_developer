@@ -11,6 +11,10 @@ class WeatherByCoordinatesDto:
 
 
 @dataclass
-class SuccessSubscribeToCity:
-    status: str
-    message: str
+class WeatherByNameAndTime:
+    city_name: str
+    datetime: str
+    temperature: float | None
+    humidity: float | None
+    wind_speed: float | None
+    precipitation: float | None

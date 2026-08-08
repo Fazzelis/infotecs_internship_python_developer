@@ -22,3 +22,5 @@ class City(Base):
         secondary="user_city_association",
         back_populates="cities"
     )
+
+    weather_forecast: Mapped["WeatherForecast"] = relationship("WeatherForecast", back_populates="city")

@@ -21,7 +21,7 @@ class UserService:
             login=created_user.login
         )
 
-    async def login(self, payload: UserLogin):
+    async def login(self, payload: UserLogin) -> UserDto:
         optional_user = await self._user_repository.get_by_login(login=payload.login)
         if not optional_user or not hasher.match_hash(payload.password, optional_user.password):
             raise InvalidLoginOrPasswordException()
