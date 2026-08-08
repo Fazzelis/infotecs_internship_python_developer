@@ -42,7 +42,7 @@ registrate_all_exceptions(app)
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(
-        "main:app",
+        "script:app",
         host=os.getenv("BACKEND_IP"),
         port=int(os.getenv("BACKEND_PORT"))
     )
