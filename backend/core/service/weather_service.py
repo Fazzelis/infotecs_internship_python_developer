@@ -19,7 +19,7 @@ class WeatherService:
         self._api_url = os.getenv("WEATHER_API_URL")
 
     async def get_by_coordinates(self, latitude: float, longitude: float) -> WeatherByCoordinatesDto:
-        if not (-90 < latitude < 90) or not (-180 < longitude < 180):
+        if not (-90 <= latitude <= 90) or not (-180 <= longitude <= 180):
             raise InvalidCoordinate()
         request_params = {
             "latitude": latitude,
@@ -33,9 +33,7 @@ class WeatherService:
         return WeatherByCoordinatesDto(
             temperature=str(current.Variables(0).Value()),
             wind_speed=str(current.Variables(1).Value()),
-            pressure=str(current.Variables(2).Value()),
-            time=str(current.Time()),
-            timezone=str(response.Timezone())
+            pressure=str(current.Variables(2).Value())
         )
 
     async def subscribe_to_city(self, payload: CityToSubscribe) -> SuccessSubscribeToCity:

@@ -19,11 +19,9 @@ async def get_by_coordinates(
 ) -> WeatherByCoordinatesSchema:
     weather_info_dto = await weather_service.get_by_coordinates(latitude=latitude, longitude=longitude)
     return WeatherByCoordinatesSchema(
-        temperature=weather_info_dto.temperature,
-        wind_speed=weather_info_dto.wind_speed,
-        pressure=weather_info_dto.pressure,
-        time=weather_info_dto.time,
-        timezone=weather_info_dto.timezone
+        temperature=f"{weather_info_dto.temperature} C",
+        wind_speed=f"{weather_info_dto.wind_speed} km/h",
+        pressure=f"{weather_info_dto.pressure} hPa"
     )
 
 
@@ -75,8 +73,8 @@ async def get_forecast_by_name_and_time(
     return WeatherByNameAndTime(
         city_name=result.city_name,
         datetime=result.datetime,
-        temperature=result.temperature,
-        humidity=result.humidity,
-        wind_speed=result.wind_speed,
-        precipitation=result.precipitation
+        temperature=f"{result.temperature} C",
+        humidity=f"{result.humidity} %",
+        wind_speed=f"{result.wind_speed} km/h",
+        precipitation=f"{result.precipitation} mm"
     )

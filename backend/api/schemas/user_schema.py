@@ -3,8 +3,8 @@ import re
 
 
 class UserCreate(BaseModel):
-    login: str = Field(min_length=3, max_length=50)
-    password: str = Field(min_length=8, max_length=30)
+    login: str = Field(min_length=1, max_length=50)
+    password: str = Field(min_length=8)
 
     @field_validator("password")
     def validate_password(cls, value: str) -> str:
